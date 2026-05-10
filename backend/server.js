@@ -6,8 +6,16 @@ const calcRoutes = require('./routes/calcRoutes');
 const app = express();
 app.use(cors());
 app.use(express.json());
+require('dotenv').config();
 
-mongoose.connect('mongodb://127.0.0.1:27017/calculator');
+app.get("/", (req, res) => {
+  res.send("API Running 🚀");
+});
+
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log(err));
+
 
 app.use('/api/calc', calcRoutes);
 
