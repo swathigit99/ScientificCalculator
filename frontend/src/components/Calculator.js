@@ -17,7 +17,10 @@ function Calculator() {
     if (val === 'C') return setExpression('');
     if (val === '=') {
       try {
-        const res = await axios.post('http://localhost:5000/api/calc', { expression });
+        const API = process.env.REACT_APP_API;
+
+const res = await axios.post(`${API}/api/calc`, { expression });
+       // const res = await axios.post('http://localhost:5000/api/calc', { expression });
         setExpression(res.data.result.toString());
         fetchHistory();
       } catch {
@@ -29,7 +32,10 @@ function Calculator() {
   };
 
   const fetchHistory = async () => {
-    const res = await axios.get('http://localhost:5000/api/calc/history');
+    const API = process.env.REACT_APP_API;
+
+const res = await axios.get(`${API}/api/calc/history`);
+   // const res = await axios.get('http://localhost:5000/api/calc/history');
     setHistory(res.data);
   };
 
